@@ -31,12 +31,13 @@ public class CustomerDAOImpl implements CustomerDAO {
 		
 		//cretae a query
 		Query<Customer> theQuery=
-				currentSession.createQuery("from customer",Customer.class);
+				currentSession.createQuery("from Customer",Customer.class);
 		
 		//execute query and get result
 		List<Customer> customers=theQuery.getResultList();
 			
 		//return the result
+		//System.out.println("abc");
 		
 		return customers;
 	}
