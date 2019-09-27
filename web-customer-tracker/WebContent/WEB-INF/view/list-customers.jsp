@@ -15,11 +15,17 @@ List Customers
 
 <div id="wrapper">
 	<div id="header">
-		<h2>CRM- Cusomer Relation</h2>
+		<h2>CRM- Customer Relation</h2>
 	</div>
 </div>
 <div id="container">
 	<div id="content"> 
+	
+	<!-- Add the button for Add Customer -->
+	<input type="button" value="Add Customer" onclick="window.location.href='showFormForAdd'; return false;"
+			class="add-button"	
+	/>
+	
 	
 		<!--  add the html table here -->
 		<table>
