@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.luv2code.springdemo.dao.CustomerDAO;
 import com.luv2code.springdemo.entity.Customer;
@@ -68,7 +69,7 @@ public class CustomerController {
 	    	//save the customer  using our service
 	    	customerService.saveCustomer(thecustomer);
 	    	
-	    	List<Customer> theCustomers=customerService.getCustomers();
+	    	//List<Customer> theCustomers=customerService.getCustomers();
 //	    	// add the customer to the model
 //	    	themodel.addAttribute("customers",theCustomers);
 //	    	
@@ -77,4 +78,24 @@ public class CustomerController {
 	    }
 	    
 	
+	    
+	    
+	    @GetMapping("/showFormForUpdate")
+	    public String showFormforUpdate(@RequestParam("customerId") int theid, Model themodel){
+	    	
+	    	// get the customer from the service
+	    	Customer thecustomer=customerService.getCustomer(theid);
+	    	
+	    	
+	    	//set customer as a model attribute to prepopulate the form
+	    	themodel.addAttribute("customer",thecustomer);
+	    	
+	    	
+	    	//send over to our form
+	    	  	
+			return "customer-form";
+	    	
+	    }
+	    
+	    
 }
