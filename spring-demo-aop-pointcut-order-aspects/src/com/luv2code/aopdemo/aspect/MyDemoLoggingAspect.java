@@ -2,10 +2,13 @@ package com.luv2code.aopdemo.aspect;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
+@Order(10)
 public class MyDemoLoggingAspect {
 
 	
@@ -34,12 +37,25 @@ public class MyDemoLoggingAspect {
 	 *   .. 0 or more number of arguements matached
 	 */
 	//@Before("execution(* add*(com.luv2code.aopdemo.Account, ..))")
-	@Before("execution(* add*(..))")
+	//@Before("execution(* add*(..))")
 	
+	
+	/*
+	 * Point Cut Declaration 
+	 * for reuability
+	 */
+	
+	
+	
+	
+	//bfore using pointcut declaration name
+	@Before("com.luv2code.aopdemo.aspect.LuvAOPexpressions.forDAOpacakagenogetternosetter()")
 	public void beforeAddAccontAdvice() {
 		
 		System.out.println("\n ============>>>>> Before advise on the addAccount ()");
 	}
+	
+	
 	
 	
 	

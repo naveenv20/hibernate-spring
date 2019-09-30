@@ -26,6 +26,10 @@ public class MainDemoApp {
 		
 		//call the business method
 		Account account=new Account();
+		theAccountDAO.setName("Sai");
+		theAccountDAO.setServiceCode("ram");
+		System.out.println(theAccountDAO.getName());
+		System.out.println(theAccountDAO.getServiceCode());
 		theAccountDAO.addAccount(account,true);
 
 		
