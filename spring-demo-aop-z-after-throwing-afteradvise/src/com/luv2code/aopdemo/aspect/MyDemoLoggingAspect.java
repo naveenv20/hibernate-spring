@@ -5,7 +5,9 @@ import java.util.List;
 import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -79,7 +81,7 @@ public class MyDemoLoggingAspect {
 			
 			if(temporg instanceof Account){
 				
-				//downcast and  print accont specific  stuff
+				//downcast and  print account specific  stuff
 				Account tempAccount= (Account) temporg;
 				System.out.println("Account name : "+tempAccount.getName());
 				
@@ -116,6 +118,29 @@ public class MyDemoLoggingAspect {
 	}
 
 
+	
+	@AfterThrowing(
+			pointcut="execution(* com.luv2code.aopdemo.dao.AccountDAO.findAccounts(..))",
+			throwing="theExec"
+			)
+	public void afterThrowingfindaccountsAdvise(JoinPoint thejoinpoint,Throwable theExec){
+		
+		String method=thejoinpoint.getSignature().toShortString();
+		System.out.println("\n ================Executing @ Afterthrowing <<<"+method);
+		
+		
+		System.out.println("\n ========Exception is ========>>>"+theExec);
+		
+	}
+	
+	
+	@After("execution(* com.luv2code.aopdemo.dao.AccountDAO.findAccounts(..))")
+	public void afteradvisefindaccountsAdvise(JoinPoint thejoinpoint){
+		String method=thejoinpoint.getSignature().toShortString();
+		System.out.println("\n ================Executing @@@@ AfterAdvise  (finally bloack kind)  ======<<<"+method);
+					
+	}
+	
 
 
 

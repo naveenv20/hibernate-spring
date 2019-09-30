@@ -2,24 +2,28 @@ package com.luv2code.aopdemo.aspect;
 
 import java.util.List;
 
-import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
-
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.luv2code.aopdemo.Account;
+import com.sun.istack.internal.logging.Logger;
 
 @Aspect
 @Component
 @Order(10)
 public class MyDemoLoggingAspect {
 
+	private Logger myLogger=Logger.getLogger(MyDemoLoggingAspect.class);
 	
 	//this is where we add all our related advices for logging 
 	
@@ -79,7 +83,7 @@ public class MyDemoLoggingAspect {
 			
 			if(temporg instanceof Account){
 				
-				//downcast and  print accont specific  stuff
+				//downcast and  print account specific  stuff
 				Account tempAccount= (Account) temporg;
 				System.out.println("Account name : "+tempAccount.getName());
 				
@@ -116,6 +120,73 @@ public class MyDemoLoggingAspect {
 	}
 
 
+	
+	@AfterThrowing(
+			pointcut="execution(* com.luv2code.aopdemo.dao.AccountDAO.findAccounts(..))",
+			throwing="theExec"
+			)
+	public void afterThrowingfindaccountsAdvise(JoinPoint thejoinpoint,Throwable theExec){
+		
+		String method=thejoinpoint.getSignature().toShortString();
+		System.out.println("\n ================Executing @ Afterthrowing <<<"+method);
+		
+		
+		System.out.println("\n ========Exception is ========>>>"+theExec);
+		
+	}
+	
+	
+	@After("execution(* com.luv2code.aopdemo.dao.AccountDAO.findAccounts(..))")
+	public void afteradvisefindaccountsAdvise(JoinPoint thejoinpoint){
+		String method=thejoinpoint.getSignature().toShortString();
+		System.out.println("\n ================Executing @@@@ AfterAdvise  (finally bloack kind)  ======<<<"+method);
+					
+	}
+	
+	
+	
+	
+	@Around("execution(* com.luv2code.aopdemo.service.*.getFortune(..))")
+	public Object  aroundgetfortune(
+			ProceedingJoinPoint theproceedingJoinpoint) throws Throwable{
+		
+		
+		//print out methid we are advising 
+		
+		String method=theproceedingJoinpoint.getSignature().toShortString();
+		myLogger.info("\n ================Executing @ Around on method <<<"+method);
+		
+		//get begin time stamp
+		long begin=System.currentTimeMillis();
+		
+		
+		//now lets execute the method
+		Object result=theproceedingJoinpoint.proceed();
+		
+		
+		//get the end time stamp
+		
+		long end=System.currentTimeMillis();
+		
+		//comput ethe duration  and display
+		
+		long duration=end-begin;
+		
+		myLogger.info("Duration ======================>>>: "+duration/1000.0+ " Seconds");
+		
+		myLogger.info("RESULT===============####"+ result);
+		return result;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 
