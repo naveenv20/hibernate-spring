@@ -1,0 +1,13 @@
+programmableweb.com
+
+
+
+http://com.luv2code.com/jackson-databinding-json-demo.
+
+
+mvn -Dhttps.protocols=TLSv1.2 install
+
+http://teamaqua.github.io/JSONTest/
+
+jsonplaceholder.typicode.com
+
