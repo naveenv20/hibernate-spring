@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- BOOTSTARP for PAGE LOOK AND FEEL CSS KIND -->
+<!-- getbootstrap.com -->
+
+<head>
+
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+
+
+<title>Thymelead Table Demo</title>
+
+</head>
+
+
+<body>
+	<div class="container">
+		<h3>Employee Directory</h3>
+		<hr>
+		<!--  Add a button for add employee -->
+
+		<a th:href="@{/employees/showFormForAdd}"
+			class="btn btn-primary btn-sm mb-3"> Add Employee </a>
+
+		<table class="table table-bordered table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>Firstname</th>
+					<th>Lastname</th>
+					<th>email</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="tempemployee : ${employees}">
+					<td th:text="${tempemployee.firstName}"></td>
+					<td th:text="${tempemployee.lastName}"></td>
+					<td th:text="${tempemployee.email}"></td>
+					<td>
+						<a th:href="@{/employees/showFormForUpdate(employeeId=${tempemployee.id})}" 
+						class="btn btn-info btn-sm">Update</a>
+					</td>
+				</tr>
+
+
+			</tbody>
+
+		</table>
+
+
+
+	</div>
+</body>
+
+</html>
